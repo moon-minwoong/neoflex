@@ -1,9 +1,9 @@
-////
+﻿////
 ////  Regist.swift
 ////  mydream
 ////
-////  Created by 문민웅 on 2018. 5. 17..
-////  Copyright © 2018년 moon. All rights reserved.
+////  Created by WESTCOTT on 2018. 5. 17..
+////  Copyright © 2018 . All rights reserved.
 ////
 //
 import Foundation
@@ -20,10 +20,11 @@ class iphone_plus: UIViewController{
     var clicked_preset:Int = 0
     let swipe_view = UIView()
     let info_view = UIView()
+    let menu_button = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIApplication.shared.statusBarView?.backgroundColor = UIColor.white
+        UIApplication.shared.statusBarView?.backgroundColor = mainColor
         navigationController?.setNavigationBarHidden(true, animated: false)
             
         swipe_view.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 300)
@@ -133,7 +134,7 @@ class iphone_plus: UIViewController{
     }
     
     private func setuplayout() {
-        view.backgroundColor = .black
+        view.backgroundColor = mainColor
         view.addSubview(westcottimage)
         view.addSubview(device_label)
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(mode_change(tapGestureRecognizer:)))
@@ -150,12 +151,24 @@ class iphone_plus: UIViewController{
         westcottimage.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true
         //        imageview.centerYAnchor.constraint(equalTo:view.centerYAnchor).isActive = true
         westcottimage.topAnchor.constraint(equalTo:device_label.bottomAnchor,constant:view.frame.size.height/30).isActive = true
-        westcottimage.widthAnchor.constraint(equalToConstant: view.frame.size.width).isActive = true
-        westcottimage.heightAnchor.constraint(equalToConstant: view.frame.size.height/13).isActive = true
+        westcottimage.widthAnchor.constraint(equalToConstant: view.frame.size.width * 0.7).isActive = true
+        westcottimage.contentMode = .scaleAspectFit
+        
+        menu_button.translatesAutoresizingMaskIntoConstraints = false
+        menu_button.setImage(UIImage(named: "menu"), for: .normal)
+        menu_button.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        menu_button.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        menu_button.centerYAnchor.constraint(equalTo: westcottimage.centerYAnchor, constant: 0).isActive = true
+        menu_button.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        menu_button.addTarget(self, action: #selector(onClickMenu(sender:)), for: .touchUpInside)
         
         if stat_device {
             reset_btn.isHidden = true
         }
+    }
+    
+    @objc func onClickMenu(sender: Any) {
+        show_info(UISwipeGestureRecognizer())
     }
     
     private func labellayout(){
@@ -308,10 +321,9 @@ class iphone_plus: UIViewController{
         cctslider.translatesAutoresizingMaskIntoConstraints = false
         cctslider.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true
         cctslider.topAnchor.constraint(equalTo: cctlabel.bottomAnchor,constant:10).isActive = true
-        cctslider.backgroundColor = .white
+        cctslider.backgroundColor = .clear
         cctslider.minimumValue = 0
         cctslider.maximumValue = 32
-        cctslider.backgroundColor = .black
         cctslider.leftAnchor.constraint(equalTo:view.leftAnchor,constant:20).isActive = true
         cctslider.widthAnchor.constraint(equalToConstant:view.frame.size.width).isActive = true
         cctslider.minimumTrackTintColor = UIColor(red:255/255,green:120/255,blue:40/255,alpha:1.0)
@@ -327,11 +339,10 @@ class iphone_plus: UIViewController{
         brtslider.translatesAutoresizingMaskIntoConstraints = false
         brtslider.centerXAnchor.constraint(equalTo:view.centerXAnchor).isActive = true
         brtslider.topAnchor.constraint(equalTo: brtlabel.bottomAnchor,constant:10).isActive = true
-        brtslider.backgroundColor = .white
+        brtslider.backgroundColor = .clear
         brtslider.minimumValue = 0
         brtslider.maximumValue = 100
         brtslider.value=100
-        brtslider.backgroundColor = .black
         brtslider.leftAnchor.constraint(equalTo:view.leftAnchor,constant:20).isActive = true
         brtslider.widthAnchor.constraint(equalToConstant:view.frame.size.width).isActive = true
         brtslider.minimumTrackTintColor = UIColor(red:255/255,green:255/255,blue:255/255,alpha:1.0)
@@ -344,7 +355,7 @@ class iphone_plus: UIViewController{
         multi_slider.maximumAngle = 270.0
         multi_slider.lineWidth = 20
         multi_slider.filledColor = UIColor(red: 255 / 255.0, green: 255 / 255.0, blue: 255 / 255.0, alpha: 1.0)
-        multi_slider.unfilledColor = UIColor.gray
+        multi_slider.unfilledColor = UIColor.black.withAlphaComponent(0.2)
         multi_slider.handleType = .doubleCircle
         multi_slider.handleColor = UIColor(red: 255 / 255.0, green: 69 / 255.0, blue: 96 / 255.0, alpha: 1.0)
         multi_slider.handleEnlargementPoints = 12
@@ -361,7 +372,7 @@ class iphone_plus: UIViewController{
         slider.maximumAngle = 270.0
         slider.lineWidth = 20
         slider.filledColor = UIColor(red: 255 / 255.0, green: 255 / 255.0, blue: 255 / 255.0, alpha: 1.0)
-        slider.unfilledColor = UIColor.gray
+        slider.unfilledColor = UIColor.black.withAlphaComponent(0.2)
         slider.handleType = .doubleCircle
         slider.handleColor = UIColor(red: 255 / 255.0, green: 69 / 255.0, blue: 96 / 255.0, alpha: 1.0)
         slider.handleEnlargementPoints = 12
@@ -394,7 +405,7 @@ class iphone_plus: UIViewController{
         view.addSubview(p3btn)
         view.addSubview(p4btn)
         
-        p1btn.backgroundColor = .black
+        p1btn.backgroundColor = .clear
         if stat_device {
             p1btn.setTitle("CH1", for: .normal)
             p1btn.setTitleColor(.white, for: .normal)
@@ -430,7 +441,6 @@ class iphone_plus: UIViewController{
         p2btn.leftAnchor.constraint(equalTo:view.leftAnchor,constant:view.frame.size.width/4).isActive = true
         p2btn.widthAnchor.constraint(equalToConstant:view.frame.size.width/4).isActive = true
         
-        p2btn.layer.borderWidth = 1.0
         p2btn.addTarget(self, action: #selector(self.pressbtn2(_:)), for: .touchUpInside)
         
         p3btn.setAttributedTitle(NSAttributedString(string: "P3", attributes: preset_btn_design_gray), for: .normal)
@@ -1714,7 +1724,7 @@ class iphone_plus: UIViewController{
         info_device_num = tapGestureRecognizer.view!.tag
         
         information_view.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
-        information_view.backgroundColor = .black
+        information_view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
         view.addSubview(information_view)
         
         let info_title = UILabel()
