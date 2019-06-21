@@ -1,6 +1,2 @@
 123123
-asdasd'
-alalal
-x,x,x,
-qqqq
-wwww
+asdasd
